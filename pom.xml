@@ -49,9 +49,30 @@
     <dependency>
 	<groupId>net.masterthought</groupId>
 	<artifactId>cucumber-reporting</artifactId>
-	<version>1.0.0</version>
+	<version>4.5.1</version>
     </dependency>
 
     </dependencies>
-
+    <build>
+        <plugins>
+        <plugin>
+            <groupId>com.trivago.rta</groupId>
+            <artifactId>cluecumber-report-plugin</artifactId>
+            <version>1.7.2</version>
+            <executions>
+                <execution>
+                    <id>report</id>
+                    <phase>post-integration-test</phase>
+                    <goals>
+                        <goal>reporting</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <sourceJsonReportDirectory>${project.build.directory}/cucumber-report</sourceJsonReportDirectory>
+                <generatedHtmlReportDirectory>${project.build.directory}/generated-report</generatedHtmlReportDirectory>
+            </configuration>    
+        </plugin>
+        </plugins>
+    </build>
 </project>

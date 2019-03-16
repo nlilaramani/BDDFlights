@@ -17,7 +17,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
     features="./src/test/java/features", // feature file path
     glue="StepDefs", // path for step definitions
-    plugin = {"pretty", "html:target/cucumber"},
+    plugin = {"pretty", "html:target/cucumber","json:target/cucumber/cucumber.json"},
     dryRun=false, // if true, checks for steps 
     monochrome=true, // readable output
     strict=true)

@@ -6,6 +6,8 @@
 package StepDefs;
 
 import com.bdd.sel.test.SeleniumUtils;
+import static cucumber.api.HookType.Before;
+import cucumber.api.Scenario;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -13,9 +15,14 @@ import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import java.util.List;
 import junit.framework.Assert;
+//import org.junit.After;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.TakesScreenshot;
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
 
 /**
  *
@@ -92,5 +99,19 @@ public class FlighBookingSteps {
      @Then("System displays flight confirmation")
      public void verifyConfirmation(){
          Assert.assertEquals("Flight Confirmation: Mercury Tours", driver.getTitle());
+     }
+     
+     // Hooks
+     @Before
+     public void setUp(Scenario scenario){
+        System.out.println(scenario.getName()); 
+     }
+     @After
+     public void tearDown(Scenario scenario){
+         
+         if (scenario.isFailed()) {
+            byte[] screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+            scenario.embed(screenshot, "image/png");
+        }
      }
 }
